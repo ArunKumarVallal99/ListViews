@@ -1,47 +1,69 @@
-import React,{useState} from 'react';
+import React from "react";
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
-  View,
   Text,
-  StatusBar,
-  FlatList,
-} from 'react-native';
+  View,
+  SafeAreaView,
+  SectionList
+} from "react-native";
 
-const yourApp= () => {
-  const [people, setPeople] = useState([
-    {name:'Astro', id:'1'},
-    {name:'James', id:'2'},
-    {name:'Noel', id:'3'},
-    {name:'Owen', id:'4'},
-  ]);
+
+
+const App = () =>{
+
+  const DATA = [
+    {
+      title: "Student Names",
+      data: ["Arun", "Riyas", "Dinesh"]
+    },
+    {
+      title: "Employee",
+      data: ["James", "Andrew", "Owen"]
+    },
+    {
+      title: "Development",
+      data: ["ML", "Mobile", "Ar"]
+    },
+  ];
   
-  return (
-    <View style={styles.container}>
-      <FlatList
-        keyExtractor={(item)=>item.id}
-        data={people}
-        renderItem={({item})=>(
-        <Text style={styles.text}>{item.name}</Text>
-      )}
-      />
+  const Item = ({ title }) => (
+    <View style={styles.item}>
+      <Text style={styles.title}>{title}</Text>
     </View>
   );
+
+
+  return(
+  <SafeAreaView style={styles.container}>
+    <SectionList
+      sections={DATA}
+      keyExtractor={(item, index) => item + index}
+      renderItem={({ item }) => <Item title={item} />}
+      renderSectionHeader={({ section: { title } }) => (
+        <Text style={styles.header}>{title}</Text>
+      )}
+    />
+  </SafeAreaView>
+);
 };
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    paddingTop:40,
-    padding:20,
+  container: {
+    flex: 1,
+    marginHorizontal: 16
   },
-  text:{
-    marginTop:24,
-    padding:30,
-    backgroundColor:'pink',
-    fontSize:24,
+  item: {
+    backgroundColor: "#f9c2ff",
+    padding: 20,
+    marginVertical: 8
   },
+  header: {
+    fontSize: 32,
+    backgroundColor: "#fff"
+  },
+  title: {
+    fontSize: 24
+  }
 });
 
-export default yourApp;
+export default App;
