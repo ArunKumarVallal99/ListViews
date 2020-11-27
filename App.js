@@ -8,7 +8,6 @@ const wait = (timeout) => {
 }
 const App = () => {
   const [refreshing, setRefreshing] = React.useState(false);
-
   const onRefreshing = React.useCallback(() => {
     setRefreshing(true);
     wait(500).then(() => setRefreshing(false));
