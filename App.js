@@ -1,69 +1,36 @@
-import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  SectionList
-} from "react-native";
+import React from 'react';
+import {ScrollView, RefreshControl,StyleSheet,Text,} from 'react-native';
 
+const wait = (timeout) => {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+}
+const App = () => {
+  const [refreshing, setRefreshing] = React.useState(false);
 
+  const onRefreshing = React.useCallback(() => {
+    setRefreshing(true);
+    wait(500).then(() => setRefreshing(false));
+  }, []);
+  return (
+    
+      <ScrollView
+        contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefreshing} />
+      }>
+        <Text>Pull down</Text>
+      </ScrollView>
 
-const App = () =>{
-
-  const DATA = [
-    {
-      title: "Student Names",
-      data: ["Arun", "Riyas", "Dinesh"]
-    },
-    {
-      title: "Employee",
-      data: ["James", "Andrew", "Owen"]
-    },
-    {
-      title: "Development",
-      data: ["ML", "Mobile", "Ar"]
-    },
-  ];
-  
-  const Item = ({ title }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-    </View>
   );
-
-
-  return(
-  <SafeAreaView style={styles.container}>
-    <SectionList
-      sections={DATA}
-      keyExtractor={(item, index) => item + index}
-      renderItem={({ item }) => <Item title={item} />}
-      renderSectionHeader={({ section: { title } }) => (
-        <Text style={styles.header}>{title}</Text>
-      )}
-    />
-  </SafeAreaView>
-);
-};
-
+}
 const styles = StyleSheet.create({
-  container: {
+  scrollView: {
     flex: 1,
-    marginHorizontal: 16
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    marginVertical: 8
-  },
-  header: {
-    fontSize: 32,
-    backgroundColor: "#fff"
-  },
-  title: {
-    fontSize: 24
-  }
 });
 
 export default App;
