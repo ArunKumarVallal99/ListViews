@@ -1,43 +1,44 @@
-import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import React from 'react';
+import { View, Text, FlatList } from 'react-native';
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      data: [],
-      isLoading: true
-    };
+export default class App extends React.Component {
+  state = {
+    items: [],
+    isLoading: false
   }
 
-  componentDidMount() {
-    fetch('https://reactnative.dev/movies.json')
-      .then((response) => response.json())
-      .then((json) => {
-        this.setState({ data: json.movies });
-      })
-      .catch((error) => console.error(error))
-      .finally(() => {
-        this.setState({ isLoading: false });
-      });
-  }
-
-  render() {
-    const { data, isLoading } = this.state;
-
+  renderRow = ({ item }) => {
     return (
-      <View style={{ flex: 1, padding: 24 }}>
-        {isLoading ? <ActivityIndicator/> : (
-          <FlatList
-            data={data}
-            keyExtractor={({ id }, index) => id}
-            renderItem={({ item }) => (
-              <Text>{item.title}, {item.releaseYear}</Text>
-            )}
-          />
-        )}
+      <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}>
+        <Text>{item.title}</Text>
       </View>
-    );
+    )
   }
-};
+
+  componentDidMount(){
+    this.getData()
+  }
+
+  getData = () => {
+    this.setState({isLoading:true})
+    fetch('https://reactnative.dev/movies.json')
+    .then((response) => response.json())
+    .then((json) => {
+      this.setState({ items: json.movies });
+    })
+    .finally(()=> this.setState({isLoading:false}))
+  }
+  render() {
+    return (
+      <View style={{ flex: 1, marginTop: 50 }}>
+        <FlatList
+          data={this.state.items}
+          renderItem={this.renderRow}
+          refreshing={this.state.isLoading}
+          onRefresh={this.getData}
+          keyExtractor={(i, k) => k.toString()}
+        />
+      </View>
+    )
+  }
+}
