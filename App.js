@@ -20,9 +20,11 @@ export default class App extends React.Component {
               {id:'12',name:'Annie',des:'Nam sit amet elit vel odio porttitor posuere at dapibus diam. Duis vitae enim id ipsum laoreet porttitor a sit amet nunc.',imageUri:'https://reactnative.dev/img/tiny_logo.png',hours:'2 hours ago'},
               {id:'13',name:'Moon Pie',des:'Donec sed viverra nisi. Vestibulum congue, odio id porttitor congue, orci lectus',imageUri:'https://reactnative.dev/img/tiny_logo.png',hours:'2 hours ago'},
               {id:'14',name:'Hello World',des:'Donec sed viverra nisi. Vestibulum congue, odio id porttitor congue, orci lectus',imageUri:'https://reactnative.dev/img/tiny_logo.png',hours:'2 hours ago'},
-              {id:'15',name:'Son',des:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin lacus sit amet rutrum placerat.', imageUri:'https://reactnative.dev/img/tiny_logo.png',hours:'2 hours ago'}
+              {id:'15',name:'Son',des:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin lacus sit amet rutrum placerat.', imageUri:'https://reactnative.dev/img/tiny_logo.png',hours:'2 hours ago'},
+              {id:'16',name:'Newzland',des:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sollicitudin lacus sit amet rutrum placerat.', imageUri:'https://reactnative.dev/img/tiny_logo.png',hours:'2 hours ago'}
             ],
             isRefreshing:false,
+            arr:[]
             
         }
   renderRow = ({ item }) => {
@@ -32,30 +34,22 @@ export default class App extends React.Component {
             <Image source={{uri:item.imageUri}} style={styles.imageContainer}/>   
         </View>
         <View style={styles.textContainer}>
-            <Text style={styles.title}>{item.name}</Text>
+    <Text style={styles.title}>{item.name} ID:{item.id}</Text>
             <Text style={styles.des}>{item.des}</Text>
             <Text style={styles.hour}>{item.hours}</Text>
         </View>
       </View>
     )
   }
-  endReached=()=>{
-    console.warn(this.state.firstSetData.length+this.state.secondSetData.length)
-      if(this.state.firstSetData.length<this.state.secondSetData.length){
-        // this.setState({
-        //   firstSetData:this.state.firstSetData.splice(this.state.firstSetData.length,0,this.state.secondSetData[this.state.firstSetData.length-6])
-        // })
-        this.setState({firstSetData:this.state.firstSetData.concat(this.state.secondSetData)})
-        console.log(this.state.firstSetData)
+
+  //Considering the inital load as 6 for a page and at reaching the end another 5 will be loaded.
+  endReached=()=>{         
+    console.log(this.state.firstSetData.length)                                                  
+    if(this.state.firstSetData.length<this.state.secondSetData.length+5){
+      this.setState({
+          firstSetData:this.state.firstSetData.concat(this.state.secondSetData.slice(this.state.firstSetData.length-6,this.state.firstSetData.length-1))
+        })
       } 
-    // //   console.warn(this.state.firstSetData.length)
-    // if(this.state.firstSetData.length<7){
-    //   console.warn(this.state.firstSetData.length)
-    //   this.setState({
-    //           firstSetData:this.state.firstSetData.concat(this.state.secondSetData)})
-    //   console.log(this.state.firstSetData.length)
-    // }
-   
   }
   refresh=()=>{
     this.setState({isRefreshing:true})
