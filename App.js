@@ -45,8 +45,7 @@ export default class App extends React.Component {
         // this.setState({
         //   firstSetData:this.state.firstSetData.splice(this.state.firstSetData.length,0,this.state.secondSetData[this.state.firstSetData.length-6])
         // })
-        this.setState({
-                firstSetData:this.state.firstSetData.concat(this.state.secondSetData)})
+        this.setState({firstSetData:this.state.firstSetData.concat(this.state.secondSetData)})
         console.log(this.state.firstSetData)
       } 
     // //   console.warn(this.state.firstSetData.length)
@@ -59,7 +58,7 @@ export default class App extends React.Component {
    
   }
   refresh=()=>{
-    this.setState({isRefreshing:true,})
+    this.setState({isRefreshing:true})
   }
 
   render() {
