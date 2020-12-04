@@ -17,9 +17,9 @@ render (){
   return(
     <View style={styles.container}>
       {/*  When the button is preesed, the date/time will be shown*/}
-      <Button title ='Time' onPress={this.onPressed}/> 
+      <Button title ='Date' onPress={this.onPressed}/> 
         {this.state.touched&&(<DateTimePicker
-        mode='time'
+        mode='date'
         maximumDate={new Date(2022,2,20)}
         minimumDate={new Date(2020,0,12)}
         value={this.state.DATE}
