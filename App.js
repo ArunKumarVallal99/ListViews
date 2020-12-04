@@ -1,32 +1,32 @@
 import React, { Component } from "react";
-import {View,Text,Picker, StyleSheet,} from "react-native";
+import {View,Text, StyleSheet,Button,Alert} from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 class SimplePicker extends Component{
 state={
-  languages:'english',
-  date:new Date(1522020)
+  DATE:new Date(),
+  touched:false
 }
-
+onHandeler=(date)=>{
+ this.setState({DATE:date})
+  console.log(this.state.DATE)
+}
+onPressed=()=>{
+this.setState({touched:true})
+}
 render (){
   return(
     <View style={styles.container}>
-      <Picker style={styles.pickerElement}
-      selectedValue={this.state.languages}
-      onValueChange={(itemValue,itemIndex)=>this.setState({languages:itemValue})}
-      mode='dropdown'
-      prompt='Hey'
-      > 
-        <Picker.Item label='English' value='english'/>
-        <Picker.Item label='Tamil' value='tamil'/>
-        <Picker.Item label='Spanish' value='spanish'/>
-        <Picker.Item label='French' value='french'/>
-        <Picker.Item label='Arabic' value='arabic'/>
-        <Picker.Item label='Hindi' value='hindi'/>
-        <Picker.Item label='Thamizhi' value='tamizhi'/>
-      </Picker>
-      <DateTimePicker 
-      
-      value={this.state.date}/>
+      {/*  When the button is preesed, the date/time will be shown*/}
+      <Button title ='Time' onPress={this.onPressed}/> 
+        {this.state.touched&&(<DateTimePicker
+        mode='time'
+        maximumDate={new Date(2022,2,20)}
+        minimumDate={new Date(2020,0,12)}
+        value={this.state.DATE}
+        onChange={this.onHandeler}
+        is24Hour={true}
+        />)}
+        
     </View>
     
   )
@@ -36,11 +36,7 @@ render (){
 
 const styles= StyleSheet.create({
   container:{
-    flex:1,
-    alignItems:'center',
-    justifyContent:'center',
-
-
+padding:80,
   },
   pickerElement:{
     width:150,
