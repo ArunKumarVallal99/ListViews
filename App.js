@@ -11,6 +11,7 @@ render (){
       <Picker style={styles.pickerElement}
       selectedValue={this.state.languages}
       onValueChange={(itemValue,itemIndex)=>this.setState({languages:itemValue})}
+      mode='dropdown'
       > 
         <Picker.Item label='English' value='english'/>
         <Picker.Item label='Tamil' value='tamil'/>
