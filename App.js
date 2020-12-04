@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import {View,Text,Picker, StyleSheet,} from "react-native";
+import DateTimePicker from '@react-native-community/datetimepicker';
 class SimplePicker extends Component{
 state={
-  languages:'english'
+  languages:'english',
+  date:new Date(1522020)
 }
 
 render (){
@@ -12,6 +14,7 @@ render (){
       selectedValue={this.state.languages}
       onValueChange={(itemValue,itemIndex)=>this.setState({languages:itemValue})}
       mode='dropdown'
+      prompt='Hey'
       > 
         <Picker.Item label='English' value='english'/>
         <Picker.Item label='Tamil' value='tamil'/>
@@ -21,8 +24,13 @@ render (){
         <Picker.Item label='Hindi' value='hindi'/>
         <Picker.Item label='Thamizhi' value='tamizhi'/>
       </Picker>
+      <DateTimePicker 
+      
+      value={this.state.date}/>
     </View>
+    
   )
+  
 }
 }
 
