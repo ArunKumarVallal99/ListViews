@@ -1,46 +1,21 @@
 import React, { Component } from "react";
 import {View,Text,Image, StyleSheet,Button,Alert} from "react-native";
-import DateTimePicker from '@react-native-community/datetimepicker';
-import ImagePicker from 'react-native-image-picker'
+import { CustomPicker } from 'react-native-custom-picker'
+
 class ImagesPicker extends Component{
-  state={
-  
-  }
-  
-onPressed=()=>{
-  const options = {
-    title: 'Choose a Image',
-    storageOptions: {
-      skipBackup: true,
-      path: 'images',
-    },
-  };
-  ImagePicker.showImagePicker(options, (response) => {
-    console.log('Response = ', response);
-  
-    if (response.didCancel) {
-      console.log('User cancelled image picker');
-    } else if (response.error) {
-      console.log('ImagePicker Error: ', response.error);
-    } else if (response.customButton) {
-      console.log('User tapped custom button: ', response.customButton);
-    } else {
-      const source = { uri: response.uri };
-      this.setState({
-        imageSource: source,
-      });
-    }
-  });
-}
 render (){
+  const options = ['One', 'Two', 'Three', 'Four', 'Five'] 
   return(
-    <View style={styles.container}>
-      <Button title ='Image' onPress={this.onPressed}/> 
-      <Image source={this.state.imageSource} style={styles.imageHolder} />
+
+      <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
+        <CustomPicker
+        options={options}
+        onValueChange={value => {
+          Alert.alert('Selected Item', value || 'No item were selected!')
+        }}/>
     </View>
     
   )
-  
 }
 }
 
@@ -48,13 +23,5 @@ const styles= StyleSheet.create({
   container:{
 padding:80,
   },
-imageHolder:{
-  padding:20,
-  margin:40,
-  width:180,
-  height:150,
-  borderWidth:2,
-  borderColor:'grey',
-}
 });
 export default ImagesPicker;

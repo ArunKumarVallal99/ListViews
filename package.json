@@ -13,6 +13,7 @@
     "@react-native-community/datetimepicker": "^3.0.6",
     "react": "16.13.1",
     "react-native": "0.63.3",
+    "react-native-custom-picker": "^0.4.0",
     "react-native-image-picker": "^2.3.4"
   },
   "devDependencies": {
