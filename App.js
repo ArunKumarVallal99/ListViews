@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import {View,Text,Image, StyleSheet,Button,Alert} from "react-native";
+import DateTimePicker from '@react-native-community/datetimepicker';
 import ImagePicker from 'react-native-image-picker'
-class ImagePicker extends Component{
+class ImagesPicker extends Component{
+state={
+  touched:false
+}
 
 onPressed=()=>{
   const options = {
@@ -15,16 +19,16 @@ onPressed=()=>{
     console.log('Response = ', response);
   
     if (response.didCancel) {
-        console.log('User cancelled image picker');
+      console.log('User cancelled image picker');
     } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+      console.log('ImagePicker Error: ', response.error);
     } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
+      console.log('User tapped custom button: ', response.customButton);
     } else {
-        const source = { uri: response.uri };
-        this.setState({
-          imageSource: source,
-        });
+      const source = { uri: response.uri };
+      this.setState({
+        imageSource: source,
+      });
     }
   });
 }
@@ -49,6 +53,8 @@ uploadAvatar:{
   margin:40,
   width:180,
   height:150,
+  borderWidth:2,
+  borderColor:'grey',
 }
 });
-export default ImagePicker;
+export default ImagesPicker;
