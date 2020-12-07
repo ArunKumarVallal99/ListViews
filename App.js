@@ -1,32 +1,38 @@
 import React, { Component } from "react";
-import {View,Text, StyleSheet,Button,Alert} from "react-native";
-import DateTimePicker from '@react-native-community/datetimepicker';
-class SimplePicker extends Component{
-state={
-  DATE:new Date(),
-  touched:false
-}
-onHandeler=(date)=>{
- this.setState({DATE:date})
-  console.log(this.state.DATE)
-}
+import {View,Text,Image, StyleSheet,Button,Alert} from "react-native";
+import ImagePicker from 'react-native-image-picker'
+class ImagePicker extends Component{
+
 onPressed=()=>{
-this.setState({touched:true})
+  const options = {
+    title: 'Choose a Image',
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+    },
+  };
+  ImagePicker.showImagePicker(options, (response) => {
+    console.log('Response = ', response);
+  
+    if (response.didCancel) {
+        console.log('User cancelled image picker');
+    } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+    } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+    } else {
+        const source = { uri: response.uri };
+        this.setState({
+          imageSource: source,
+        });
+    }
+  });
 }
 render (){
   return(
     <View style={styles.container}>
-      {/*  When the button is preesed, the date/time will be shown*/}
-      <Button title ='Date' onPress={this.onPressed}/> 
-        {this.state.touched&&(<DateTimePicker
-        mode='date'
-        maximumDate={new Date(2022,2,20)}
-        minimumDate={new Date(2020,0,12)}
-        value={this.state.DATE}
-        onChange={this.onHandeler}
-        is24Hour={true}
-        />)}
-        
+      <Button title ='Image' onPress={this.onPressed}/> 
+      <Image source={this.state.imageSource} style={styles.uploadAvatar} />
     </View>
     
   )
@@ -38,12 +44,11 @@ const styles= StyleSheet.create({
   container:{
 padding:80,
   },
-  pickerElement:{
-    width:150,
-    borderColor:'black',
-    borderWidth:2,
-    height:40,
-  },
-
+uploadAvatar:{
+  padding:20,
+  margin:40,
+  width:180,
+  height:150,
+}
 });
-export default SimplePicker;
+export default ImagePicker;
