@@ -10,7 +10,7 @@ class Registeration extends Component{
     lastNameValue:'',
     dates:'12-1-2020',
     addressValue:'',
-    accountType:'premium',
+    accountType:'',
     country:'',
     emailValue:'',
     passwordValue:'',
@@ -18,36 +18,70 @@ class Registeration extends Component{
     passwordVisible:true,
     confirmPasswordVisible:true,
     isEmailValid:false,
-    isPasswordMatched:false,
-    
-    
+    isPasswordMatched:false  
   };
 
-    validation=()=>{
-      console.log(this.state.isEmailValid)
+  validation=()=>{
+      //console.log(this.state.isEmailValid)
       const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if(reg.test(this.state.emailValue)=== true){
-        this.setState({isEmailValid:true});
-      }
-      else{
-        this.setState({isEmailValid:false});
-      }
-
-      if(this.state.passwordValue!=this.state.confirmPasswordValue){
-        //console.log("notmached passwords")
-        this.setState({isPasswordMatched:false});
-      }
-      else{
-       // console.log('matched passwords')
-        this.setState({isPasswordMatched:true}) ;
-      }
-        //console.log(this.state.isEmailValid)
-        //console.log(this.state.isPasswordMatched)
-      if(this.state.isEmailValid && this.state.isPasswordMatched )
+      if(!this.state.firstNameValue.trim()){
+        console.log("Missing FirstName")
         Alert.alert("Successfully Registered")
-      else
-        Alert.alert("Email or Password is Wrong") 
-     
+      }
+      else if(!this.state.lastNameValue.trim()){
+        console.log("Missing LastName")
+        Alert.alert("Missing LastName")
+      }
+      else if(!this.state.addressValue.trim()){
+        console.log("Missing addressName")
+        Alert.alert("Missing addressName")
+      }
+      else if(!this.state.accountType.trim()){
+        console.log("Missing account")
+        Alert.alert("Missing account")
+      }
+      else if(!this.state.country.trim()){
+        console.log("Missing country")
+        Alert.alert("Missing country")
+      }
+      else if(!this.state.emailValue.trim()){
+        console.log("Missing Email")
+        Alert.alert("Missing Email")
+      }
+      else if(reg.test(this.state.emailValue)=== false){
+        Alert.alert("Invalid Email ID")
+      } 
+      else if(!this.state.passwordValue.trim()){
+        console.log("Missing Password")
+        Alert.alert("Missing Password")
+      }
+      else if(!this.state.confirmPasswordValue.trim()){
+        console.log("Missing Confirm Password")
+        Alert.alert("Missing Confirm Password")
+      }
+      else if(this.state.passwordValue!=this.state.confirmPasswordValue){
+        Alert.alert("Mismatched Passwords")
+      }
+      else {
+        // if(reg.test(this.state.emailValue)=== true){
+        //   this.setState({isEmailValid:true});
+        //   console.log(this.state.isEmailValid)
+        // }
+        // else{
+        //   this.setState({isEmailValid:false});
+        // }
+        // if(this.state.passwordValue!=this.state.confirmPasswordValue){
+
+        //   this.setState({isPasswordMatched:false});
+        // }
+        // else{
+        //   this.setState({isPasswordMatched:true}) ;
+        // }
+        //if(this.state.isEmailValid && this.state.isPasswordMatched )
+          
+        //else
+          Alert.alert("Sucessfully Registred") 
+      }
   }
 
   isVisblePassword=()=>{
@@ -72,7 +106,6 @@ class Registeration extends Component{
       <ScrollView style={styles.container}>
         <KeyboardAvoidingView
         behavior={Platform.OS == "android" ? "padding" : "height"}
-        
         style={styles.keyboardView}
         >
           <View style={styles.inputContainer}>
@@ -119,7 +152,6 @@ class Registeration extends Component{
                   },
                   dateIcon:{
                     position:'relative',
-                  
                   },
                 }}
               />
